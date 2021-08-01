@@ -31,6 +31,7 @@ import dev.patrickgold.florisboard.common.ViewUtils
 import dev.patrickgold.florisboard.debug.*
 import dev.patrickgold.florisboard.ime.core.*
 import dev.patrickgold.florisboard.ime.keyboard.ComputingEvaluator
+import dev.patrickgold.florisboard.ime.keyboard.KanaType
 import dev.patrickgold.florisboard.ime.keyboard.DefaultComputingEvaluator
 import dev.patrickgold.florisboard.ime.keyboard.ImeOptions
 import dev.patrickgold.florisboard.ime.keyboard.KeyData
@@ -71,6 +72,16 @@ class TextKeyboardView : KeyboardView, SwipeGesture.Listener, GlideTypingGesture
         override fun evaluateCaps(): Boolean {
             return externalComputingEvaluator?.evaluateCaps()
                 ?: DefaultComputingEvaluator.evaluateCaps()
+        }
+
+        override fun evaluateKanaType(): KanaType {
+            return externalComputingEvaluator?.evaluateKanaType()
+                ?: DefaultComputingEvaluator.evaluateKanaType()
+        }
+
+        override fun evaluateKanaSmall(): Boolean {
+            return externalComputingEvaluator?.evaluateKanaSmall()
+                ?: DefaultComputingEvaluator.evaluateKanaSmall()
         }
 
         override fun evaluateCaps(data: KeyData): Boolean {
@@ -1181,6 +1192,9 @@ class TextKeyboardView : KeyboardView, SwipeGesture.Listener, GlideTypingGesture
                 }
                 KeyCode.SWITCH_TO_CLIPBOARD_CONTEXT -> {
                     key.foregroundDrawableId = R.drawable.ic_assignment
+                }
+                KeyCode.KANA_SWITCHER -> {
+                    key.foregroundDrawableId = R.drawable.ic_keyboard_kana_switcher
                 }
                 KeyCode.SWITCH_TO_TEXT_CONTEXT,
                 KeyCode.VIEW_CHARACTERS -> {
